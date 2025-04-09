@@ -80,7 +80,7 @@ export function LoginForm({ dict }: Props) {
   return (
     <CardWrapper
       mainHeaderLabel={dict.auth.login}
-      headerLabel={dict.auth.registerLabel}
+      headerLabel={dict.auth.loginLabel}
       backButtonLabel={dict.auth.loginBackButtonLabel}
       backButtonHref={
         redirectUrl
@@ -91,7 +91,7 @@ export function LoginForm({ dict }: Props) {
       showSocial>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4">
+          <div className="space-y-4 text-white">
             {showTwoFactor && (
               <FormField
                 control={form.control}
@@ -118,12 +118,12 @@ export function LoginForm({ dict }: Props) {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
                           placeholder={dict.auth.emailPlaceholder}
+                          className="border-white border-[0.54px] text-white placeholder:text-white py-6 rounded-xl"
                         />
                       </FormControl>
                       <FormMessage />
@@ -135,19 +135,19 @@ export function LoginForm({ dict }: Props) {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
                           placeholder={dict.auth.passwordPlaceholder}
                           type="password"
+                          className="border-white border-[0.54px] text-white placeholder:text-white py-6 rounded-xl"
                         />
                       </FormControl>
                       <div className="flex items-center justify-end">
                         <Button
                           size={"sm"}
-                          variant={"brand_link"}
+                          variant={"white_link"}
                           asChild
                           className="px-0 font-normal">
                           <Link href={"/auth/reset"}>
@@ -165,7 +165,7 @@ export function LoginForm({ dict }: Props) {
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button
-            variant={"gradient_brand"}
+            variant={"white"}
             type="submit"
             disabled={isPending}
             className="w-full">

@@ -13,11 +13,17 @@ interface HeaderProps {
 
 export const Header = ({ label, mainHeaderLabel }: HeaderProps) => {
   return (
-    <div className="w-full flex flex-col gap-y-4 items-start justify-center">
-      <h1 className={cn("text-3xl font-semibold", font.className)}>
+    <div className="w-full flex flex-col gap-y-4 items-center justify-center text-white">
+      <h1
+        className={cn(
+          "text-3xl font-semibold whitespace-break-spaces text-center",
+          font.className
+        )}>
         {mainHeaderLabel}
       </h1>
-      <p className="text-muted-foreground text-sm">{label}</p>
+      <p className="text-muted-foreground text-sm text-white text-center whitespace-break-spaces">
+        {label}
+      </p>
     </div>
   );
 };

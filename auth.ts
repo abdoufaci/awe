@@ -74,8 +74,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       if (session.user) {
         session.user.name = token.name;
+        session.user.isSubscribed = !!token.isSubscribed;
         session.user.email = token.email as string;
         session.user.isOAuth = token.isOAuth;
+        session.user.country = token.country;
       }
 
       return session;
@@ -94,6 +96,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.email = existingUser.email;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+      token.isSubscribed = !!existingUser.subscription;
+      token.country = existingUser.country;
       return token;
     },
   },

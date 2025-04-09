@@ -1,157 +1,181 @@
-import Image from "next/image";
-
 interface Props {
   link: string;
 }
 
 export default function EmailVerification({ link }: Props) {
   return (
-    <div>
-      <style>
-        {`
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;900&display=swap');
+    <div
+      style={{
+        fontFamily: "Arial, sans-serif",
+        maxWidth: "600px",
+        margin: "0 auto",
+        padding: "20px",
+        color: "#555",
+        lineHeight: 1.5,
+      }}>
+      {/* Logo */}
+      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <img
+          src="https://88a6fxq8sy.ufs.sh/f/4I4ostcSHpwPFH6E58eAz6FAvJlByxMhZ7GgsSi3OeVf1ja4"
+          alt="Algeria World Export Logo"
+          style={{ width: "150px", height: "auto" }}
+        />
+      </div>
 
-      .montserrat {
-        font-family: 'Montserrat', Arial, sans-serif; /* Fallback font */
-      }
-    `}
-      </style>
+      {/* Email Content */}
+      <div style={{ padding: "0 15px" }}>
+        <p style={{ color: "#666", fontSize: "16px" }}>Dear Abdou,</p>
 
-      <table
-        style={{
-          width: "100%",
-          maxWidth: "500px",
-          margin: "0 auto",
-          border: "1px solid #ddd",
-          textAlign: "center",
-          fontSize: "14px",
-          fontFamily: "sans-serif",
-          lineHeight: "1.6",
-          color: "#646768",
-          borderRadius: "9px",
-        }}>
-        <tbody>
-          <tr>
-            <td
+        <p style={{ color: "#666", fontSize: "16px" }}>
+          Welcome to Algeria World Export! 🎉 You've just unlocked access to a
+          world of high-quality Algerian products, ready for export. Here's what
+          you can do next:
+        </p>
+
+        {/* Checklist */}
+        <div style={{ margin: "25px 0" }}>
+          <div style={{ display: "flex", marginBottom: "15px" }}>
+            <div
               style={{
-                paddingBottom: "16px",
-                paddingTop: "16px",
+                marginRight: "10px",
+                color: "#fff",
+                backgroundColor: "#4CAF50",
+                borderRadius: "3px",
+                width: "18px",
+                height: "18px",
                 textAlign: "center",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                lineHeight: "18px",
               }}>
-              <img
-                src="https://utfs.io/f/O2ZQkQVBNWYXsFobQLicR8Lq461rSIQ2y379egb0hEZHkFwV"
-                width="212"
-                height="88"
-                alt="Algeria-discovery"
-                style={{
-                  margin: "0 auto",
-                  objectFit: "contain",
-                }}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td
+              ✓
+            </div>
+            <div style={{ fontSize: "16px" }}>
+              <strong>Verify Your Email</strong> - Click the button below to
+              confirm your account and access our platform.
+            </div>
+          </div>
+
+          <div style={{ display: "flex", marginBottom: "15px" }}>
+            <div
               style={{
-                color: "#232323",
-                fontWeight: "bold",
-                fontSize: "20px",
-                paddingBottom: "16px",
-                fontFamily: "sans-serif",
+                marginRight: "10px",
+                color: "#fff",
+                backgroundColor: "#4CAF50",
+                borderRadius: "3px",
+                width: "18px",
+                height: "18px",
+                textAlign: "center",
+                lineHeight: "18px",
               }}>
-              Vérifiez votre adresse e-mail
-            </td>
-          </tr>
-          <tr>
-            <td
+              ✓
+            </div>
+            <div style={{ fontSize: "16px" }}>
+              <strong>Explore Export Categories</strong> - Browse a wide range
+              of verified Algerian suppliers.
+            </div>
+          </div>
+
+          <div style={{ display: "flex", marginBottom: "15px" }}>
+            <div
               style={{
-                textAlign: "left",
-                paddingRight: "32px",
-                paddingLeft: "32px",
-                fontFamily: "sans-serif",
+                marginRight: "10px",
+                color: "#fff",
+                backgroundColor: "#4CAF50",
+                borderRadius: "3px",
+                width: "18px",
+                height: "18px",
+                textAlign: "center",
+                lineHeight: "18px",
               }}>
-              <p style={{ margin: "0 0 16px 0", textAlign: "center" }}>
-                veuillez confirmer que vous souhaitez l'utiliser comme <br />{" "}
-                adresse e-mail de votre compte « Algeria Discovery »
-              </p>
-              <a
-                href={link}
-                style={{
-                  display: "inline-block",
-                  width: "100%",
-                  textAlign: "center",
-                  padding: "8px",
-                  fontSize: "17px",
-                  color: "white",
-                  background: "linear-gradient(to right, #DDBEA3, #C29A77)",
-                  borderRadius: "8px",
-                  fontFamily: "sans-serif",
-                  textDecoration: "none",
-                  fontWeight: "lighter",
-                }}>
-                Vérifier mon email
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={{
-                fontSize: "12px",
-                color: "#a7abaf",
-                paddingTop: "16px",
-                paddingBottom: "16px",
-              }}>
-              <tr>
-                <td
-                  style={{
-                    textAlign: "center",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 45% 0 45%",
-                  }}>
-                  <a
-                    target="_blank"
-                    href="https://utfs.io/f/O2ZQkQVBNWYXJhXyBynM4bQCyFvoKh71Bk6gIaripSNsAXHq">
-                    <img
-                      src="https://utfs.io/f/O2ZQkQVBNWYXJhXyBynM4bQCyFvoKh71Bk6gIaripSNsAXHq"
-                      width="20"
-                      height="20"
-                      alt="facebook"
-                      style={{
-                        objectFit: "contain",
-                        marginRight: "20px",
-                      }}
-                    />
-                  </a>
-                  <a
-                    target="_blank"
-                    href="https://utfs.io/f/O2ZQkQVBNWYX4YJWNG6i0GR9Ir7BsoXJYDUxQp4f31t6euaC">
-                    <img
-                      src="https://utfs.io/f/O2ZQkQVBNWYX4YJWNG6i0GR9Ir7BsoXJYDUxQp4f31t6euaC"
-                      width="20"
-                      height="20"
-                      alt="instagram"
-                      style={{
-                        objectFit: "contain",
-                      }}
-                    />
-                  </a>
-                </td>
-              </tr>
-              <p
-                style={{
-                  fontFamily: "sans-serif",
-                }}>
-                algeria.discovery.dz@gmail.com
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              ✓
+            </div>
+            <div style={{ fontSize: "16px" }}>
+              <strong>Submit an Order Request</strong> - Place your request, and
+              we'll handle the export process for you.
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div style={{ textAlign: "center", margin: "30px 0" }}>
+          <a
+            href={link}
+            target="_blank"
+            style={{
+              backgroundColor: "#1E88E5",
+              color: "white",
+              padding: "12px 20px",
+              textDecoration: "none",
+              borderRadius: "4px",
+              fontSize: "16px",
+              display: "block",
+              textAlign: "center",
+            }}>
+            Verify your email
+          </a>
+        </div>
+
+        {/* Footer Text */}
+        <p style={{ color: "#666", fontSize: "14px" }}>
+          If you have any questions, our support team is here to help! Simply
+          reply to this email or visit our Help Center.
+          <br />
+          Welcome aboard, and happy exporting!
+        </p>
+
+        <p style={{ color: "#666", fontSize: "14px" }}>
+          Best regards,
+          <br />
+          The Algeria World Export Team
+        </p>
+      </div>
+
+      {/* Social Media Links */}
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "40px",
+          paddingTop: "20px",
+          borderTop: "1px solid #eee",
+        }}>
+        <a
+          href={link}
+          target="_blank"
+          style={{
+            display: "inline-block",
+            margin: "0 10px",
+            textDecoration: "none",
+          }}>
+          <img
+            src="https://88a6fxq8sy.ufs.sh/f/4I4ostcSHpwPqkars4TDcG7ZjaoOngw4f3RCVz6xsXKHyBhS"
+            alt="Facebook"
+            style={{ width: "24px", height: "24px", objectFit: "contain" }}
+          />
+        </a>
+        <a
+          href={link}
+          target="_blank"
+          style={{
+            display: "inline-block",
+            margin: "0 10px",
+            textDecoration: "none",
+          }}>
+          <img
+            src="https://88a6fxq8sy.ufs.sh/f/4I4ostcSHpwPZBERMLl3nEmelA14ugPIfx50pFXYsrwaQqiC"
+            alt="Instagram"
+            style={{ width: "24px", height: "24px", objectFit: "contain" }}
+          />
+        </a>
+
+        <p style={{ color: "#999", fontSize: "12px", marginTop: "15px" }}>
+          algeriaworldexport@gmail.com
+          <br />
+          <a
+            href="http://www.algeriaworldexport.com"
+            style={{ color: "#999", textDecoration: "underline" }}>
+            www.algeriaworldexport.com
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

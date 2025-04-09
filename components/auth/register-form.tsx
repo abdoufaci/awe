@@ -20,6 +20,15 @@ import { FormSuccess } from "../form-success";
 import { register } from "@/backend/auth-actions/register";
 import { useState, useTransition } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { countryCodes } from "@/constants/country-codes";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface Props {
   dict: any;
@@ -31,6 +40,11 @@ export function RegisterForm({ dict }: Props) {
   const local = pathParts?.[0];
   const searchParams = useSearchParams();
   const redirectUrl = searchParams?.get("redirectUrl");
+  const [selectedCountry, setSelectedCountry] = useState({
+    code: "+44",
+    flag: "🇬🇧",
+    name: "United Kingdom",
+  });
 
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -41,6 +55,7 @@ export function RegisterForm({ dict }: Props) {
     defaultValues: {
       email: "",
       password: "",
+      phone: "",
     },
   });
 
@@ -48,7 +63,7 @@ export function RegisterForm({ dict }: Props) {
     setError("");
     setSuccess("");
     startTransition(() => {
-      register(values, dict).then((data) => {
+      register(values, dict, selectedCountry).then((data) => {
         setError(data.error);
         setSuccess(data.success);
       });
@@ -75,12 +90,12 @@ export function RegisterForm({ dict }: Props) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{dict.auth.name}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder={dict.auth.namePlaceholder}
+                      className="border-white border-[0.54px] text-white placeholder:text-white py-6 rounded-xl"
                     />
                   </FormControl>
                   <FormMessage />
@@ -92,12 +107,12 @@ export function RegisterForm({ dict }: Props) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder={dict.auth.emailPlaceholder}
+                      className="border-white border-[0.54px] text-white placeholder:text-white py-6 rounded-xl"
                     />
                   </FormControl>
                   <FormMessage />
@@ -109,14 +124,67 @@ export function RegisterForm({ dict }: Props) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{dict.auth.password}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder={dict.auth.passwordPlaceholder}
                       type="password"
+                      className="border-white border text-white placeholder:text-white py-6 rounded-xl"
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="flex gap-2">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="flex items-center gap-1 w-[110px] justify-between border-white border-[0.54px] text-white placeholder:text-white py-6 rounded-xl bg-transparent">
+                            <span>{selectedCountry.code}</span>
+                            <ChevronDown className="h-4 w-4 opacity-50" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                          align="start"
+                          className="w-[200px]">
+                          <ScrollArea className="h-52">
+                            {countryCodes
+                              .sort(
+                                (a, b) =>
+                                  Number(a.code.slice(1)) -
+                                  Number(b.code.slice(1))
+                              )
+                              .map((country) => (
+                                <DropdownMenuItem
+                                  key={country.code}
+                                  onClick={() => setSelectedCountry(country)}
+                                  className="cursor-pointer">
+                                  <span>{country.name}</span>
+                                  <span className="ml-auto text-muted-foreground">
+                                    {country.code}
+                                  </span>
+                                </DropdownMenuItem>
+                              ))}
+                          </ScrollArea>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      <Input
+                        type="tel"
+                        placeholder="Phone Number"
+                        className="border-white border text-white placeholder:text-white py-6 rounded-xl flex-1"
+                        {...field}
+                        disabled={isPending}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,7 +194,7 @@ export function RegisterForm({ dict }: Props) {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button
-            variant={"gradient_brand"}
+            variant={"white"}
             type="submit"
             disabled={isPending}
             className="w-full">

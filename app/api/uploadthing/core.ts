@@ -12,7 +12,7 @@ const handleAuth = async () => {
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-  wilayaImageUploader: f({
+  logoUploader: f({
     image: { maxFileSize: "4MB", maxFileCount: 1 },
   })
     // Set permissions and file types for this FileRoute
@@ -27,7 +27,9 @@ export const ourFileRouter = {
     .middleware(() => handleAuth())
     // This code runs on your server before upload
     .onUploadComplete(() => {}),
-  labelFile: f(["pdf"])
+  labelFile: f({
+    pdf: { maxFileSize: "4MB", maxFileCount: 1 },
+  })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
   // This code RUNS ON YOUR SERVER after upload

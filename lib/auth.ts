@@ -11,3 +11,9 @@ export const currentRole = async () => {
 
   return session?.user.role;
 };
+
+export const currentSubscription = async () => {
+  const session = await auth();
+
+  return session?.user.isSubscribed;
+};

@@ -12,7 +12,12 @@ import { linkReservations } from "../mutations/link-reservations";
 
 export const register = async (
   values: z.infer<typeof RegisterSchema>,
-  dict: any
+  dict: any,
+  selectedCountry: {
+    code: string;
+    flag: string;
+    name: string;
+  }
 ) => {
   const validatedFields = RegisterSchema.safeParse(values);
 
@@ -20,7 +25,7 @@ export const register = async (
     return { error: dict.auth.invalidFields };
   }
 
-  const { email, name, password } = validatedFields.data;
+  const { email, name, password, phone } = validatedFields.data;
   const salt = await bcrypt.genSalt(10);
 
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -36,6 +41,9 @@ export const register = async (
       name,
       email,
       password: hashedPassword,
+      phone: `${selectedCountry.code}${phone}`,
+      country: selectedCountry.name,
+      isActive: true,
     },
   });
 

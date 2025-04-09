@@ -1,4 +1,4 @@
-import { UserRole } from "@prisma/client";
+import { Subscription, UserRole } from "@prisma/client";
 import NextAuth, { DefaultSession } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
@@ -6,6 +6,8 @@ export type ExtendedUser = {
   role: UserRole;
   isTwoFactorEnabled: boolean;
   isOAuth: boolean;
+  isSubscribed?: boolean;
+  country: string;
 } & DefaultSession["user"];
 
 declare module "next-auth" {
@@ -19,5 +21,7 @@ declare module "next-auth/jwt" {
     role?: UserRole;
     isTwoFactorEnabled: boolean;
     isOAuth: boolean;
+    isSubscribed?: boolean;
+    country: string;
   }
 }

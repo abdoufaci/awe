@@ -61,4 +61,13 @@ export const RegisterSchema = z.object({
   name: z.string().min(1, {
     message: "Name is Required",
   }),
+  phone: z.string().min(1, {
+    message: "Phone is Required",
+  }),
+});
+
+export const ActivateSchema = z.object({
+  phone: z.string().min(1, {
+    message: "Phone is Required",
+  }),
 });

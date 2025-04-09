@@ -29,6 +29,25 @@ model User {
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  phone                 String?
+  country               String?
+
+  customerId String? @unique
+
+  orders       Order[]
+  subscription Subscription?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  id        String   @id @default(uuid())
+  startDate DateTime @default(now())
+  endDate   DateTime
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -89,4 +108,76 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+model Company {
+  id       String @id @default(uuid())
+  name     String
+  logo     Json
+  website  String @default("")
+  category String
+  address  String
+  catalog  Json
+  phone    String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+}
+
+enum OrderStatus {
+  REQUESTED
+  CONFIRMED
+  PAIED
+  SHIPPING
+  DELIVERED
+  CANCELED
+  REFENDED
+  DOCCONFIRMATION
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  status         OrderStatus @default(REQUESTED)
+  shippingAdress String
+  shippingFee    String?
+  products       Product[]
+  country        String      @default("France")
+  orderId        String      @unique
+  bankDocument   Json?
+
+  orderHistory OrderHistory[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderHistory {
+  id     String      @id @default(uuid())
+  status OrderStatus
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id       String  @id @default(uuid())
+  name     String
+  price    String?
+  quantity String
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

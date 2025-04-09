@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { BackButton } from "./back-button";
 import { Header } from "./header";
@@ -8,9 +9,9 @@ import { Social } from "./social";
 interface CardWrapperProps {
   children: React.ReactNode;
   headerLabel: string;
-  backButtonLabel: string;
-  backButtonLinkLabel: string;
-  backButtonHref: string;
+  backButtonLabel?: string;
+  backButtonLinkLabel?: string;
+  backButtonHref?: string;
   mainHeaderLabel: string;
   showSocial?: boolean;
 }
@@ -25,7 +26,11 @@ export function CardWrapper({
   mainHeaderLabel,
 }: CardWrapperProps) {
   return (
-    <Card className="sm:!w-[400px] rounded-none border-none shadow-none">
+    <Card
+      className={cn(
+        "shadow-none bg-[#FFFFFF21] rounded-[38.87px] border border-[#FFFFFF3B]",
+        showSocial ? "sm:!w-[500px] pb-10" : "sm:!w-[550px]"
+      )}>
       <CardHeader>
         <Header label={headerLabel} mainHeaderLabel={mainHeaderLabel} />
       </CardHeader>
@@ -35,13 +40,15 @@ export function CardWrapper({
         </CardFooter>
       )}
       <CardContent>{children}</CardContent>
-      <CardFooter className="py-0">
-        <BackButton
-          href={backButtonHref}
-          label={backButtonLabel}
-          linkLabel={backButtonLinkLabel}
-        />
-      </CardFooter>
+      {backButtonLabel && backButtonHref && backButtonLinkLabel && (
+        <CardFooter className="py-0">
+          <BackButton
+            href={backButtonHref}
+            label={backButtonLabel}
+            linkLabel={backButtonLinkLabel}
+          />
+        </CardFooter>
+      )}
     </Card>
   );
 }
