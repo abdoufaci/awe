@@ -11,7 +11,8 @@ function ClientQuoteBody() {
 
   const total =
     (order?.products.reduce(
-      (acc, product) => acc + parseInt(product?.price || "0"),
+      (acc, product) =>
+        acc + parseInt(product?.price || "0") * parseInt(product.quantity),
       0
     ) || 0) + parseInt(order?.shippingFee || "0");
 
@@ -55,7 +56,9 @@ function ClientQuoteBody() {
                 <div className="flex items-center gap-7">
                   <h1 className="text-[#929AA8]">x{product.quantity}</h1>
                   {order?.status !== "REQUESTED" && (
-                    <h1 className="text-[#929AA8]">{product.price} €</h1>
+                    <h1 className="text-[#929AA8]">
+                      {Number(product.price) * Number(product.quantity)} €
+                    </h1>
                   )}
                 </div>
               </div>

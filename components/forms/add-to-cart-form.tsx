@@ -61,12 +61,16 @@ export function AddToCartForm({ dict, companies }: Props) {
           quantity: "",
         },
       ],
+      address: "",
     },
   });
 
   const WatchedProducts = form.watch("products");
 
   async function onSubmit(data: z.infer<typeof AddToCartformSchema>) {
+    if (data.address === "") {
+      return;
+    }
     startTransition(() => {
       addOrder(data)
         .then(() => {
@@ -121,7 +125,7 @@ export function AddToCartForm({ dict, companies }: Props) {
                     }}>
                     <FormControl>
                       <SelectTrigger className="w-full focus-visible:ring-0 text-[#191919] border-[#CBCFD7]">
-                        <SelectValue placeholder={dict?.company?.category} />
+                        <SelectValue placeholder={dict?.cart?.companyName} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

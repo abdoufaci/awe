@@ -1,7 +1,5 @@
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import OrdersFeed from "./_components/orders-feed";
-import { currentSubscription, currentUser } from "@/lib/auth";
-import { useCurrentSubscription } from "@/hooks/use-current-subscription";
 
 async function OrdersPage({ params }: any) {
   const { lang } = await params;

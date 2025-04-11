@@ -1,4 +1,21 @@
 {
+  "payments": {
+    "DateTime": "Date & Heure",
+    "paymentId": "ID de paiement",
+    "SUBSCRIPTION": "Subscription",
+    "PAYMENT": "Payment"
+  },
+  "general": {
+    "search": "Rechercher",
+    "companies": "Entreprises",
+    "viewYourQuotes": "Voir vos devis"
+  },
+  "analytic": {
+    "orders": "Ordres",
+    "subscribers": "Abonnés",
+    "visitors": "Visiteurs",
+    "conversionRate": "Taux de conversion"
+  },
   "subscription": {
     "title": "Explorez et commandez des produits algériens de haute qualité",
     "subTitle": "Parcourez une large sélection de produits prêts à l'exportation provenant de fournisseurs algériens vérifiés. Soumettez votre demande, et nous nous occuperons du reste !",

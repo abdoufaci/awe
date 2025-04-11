@@ -3,6 +3,7 @@ import AdminHeader from "@/components/admin-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getDictionary } from "../../dictionaries";
+import Header from "@/components/header";
 
 interface Props {
   children: React.ReactNode;
@@ -11,18 +12,15 @@ interface Props {
   };
 }
 
-async function DashboardLayout({ children, params: { lang } }: Props) {
+async function CompaniesLayout({ children, params: { lang } }: Props) {
   const dict = await getDictionary(lang);
 
   return (
-    <SidebarProvider>
-      <AppSidebar dict={dict} />
-      <SidebarInset className={poppins.className}>
-        <AdminHeader />
-        {children}
-      </SidebarInset>
-    </SidebarProvider>
+    <div>
+      <Header dict={dict} />
+      {children}
+    </div>
   );
 }
 
-export default DashboardLayout;
+export default CompaniesLayout;

@@ -9,7 +9,8 @@ function OrderRightSide() {
 
   const total =
     (order?.products.reduce(
-      (acc, product) => acc + parseInt(product?.price || "0"),
+      (acc, product) =>
+        acc + parseInt(product?.price || "0") * parseInt(product.quantity),
       0
     ) || 0) + parseInt(order?.shippingFee || "0");
 

@@ -7,9 +7,10 @@ import Link from "next/link";
 interface Props {
   company: Company;
   dict: any;
+  link: string;
 }
 
-function CompanyCard({ company, dict }: Props) {
+function CompanyCard({ company, dict, link }: Props) {
   const logo: string =
     //@ts-ignore
     company.logo?.url;
@@ -49,7 +50,7 @@ function CompanyCard({ company, dict }: Props) {
           </div>
         </div>
         <Button variant={"brandOutline"}>
-          <Link href={`/admin/companies/${company.id}`}>
+          <Link href={`${link}/${company.id}`}>
             {dict.company.viewProducts}
           </Link>
         </Button>

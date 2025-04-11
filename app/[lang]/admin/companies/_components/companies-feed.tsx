@@ -29,7 +29,12 @@ function CompaniesFeed({ companies, dict }: Props) {
           return categoryRes && searchRes;
         })
         .map((company) => (
-          <CompanyCard key={company.id} company={company} dict={dict} />
+          <CompanyCard
+            link="/admin/companies"
+            key={company.id}
+            company={company}
+            dict={dict}
+          />
         ))}
     </div>
   );

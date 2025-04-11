@@ -1,4 +1,21 @@
 {
+  "payments": {
+    "DateTime": "Date & Time",
+    "paymentId": "Payment ID",
+    "SUBSCRIPTION": "Subscription",
+    "PAYMENT": "Payment"
+  },
+  "general": {
+    "search": "Search",
+    "companies": "Companies",
+    "viewYourQuotes": "View your quotes"
+  },
+  "analytic": {
+    "orders": "Orders",
+    "subscribers": "Subscribers",
+    "visitors": "Visitors",
+    "conversionRate": "Conversion rate"
+  },
   "subscription": {
     "title": "Explore & Order High-Quality Algerian Products",
     "subTitle": "Browse a wide selection of export-ready products from verified Algerian suppliers. Submit your request, and we’ll handle the rest!",

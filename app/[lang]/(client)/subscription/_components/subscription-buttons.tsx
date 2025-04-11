@@ -31,7 +31,7 @@ function SubscriptionButtons({ dict }: Props) {
         {dict.subscription.subscribe}
       </Button>
       <Button variant={"whiteOutline"} size={"lg"}>
-        {dict.subscription.subscribe}
+        {dict.subscription.freePlan}
       </Button>
     </div>
   );

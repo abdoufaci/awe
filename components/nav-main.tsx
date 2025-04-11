@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function NavMain({
   items,
@@ -35,7 +35,12 @@ export function NavMain({
   }[];
 }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const type = searchParams.get("type");
   const MainPartLink = pathname.slice(3);
+  const categoryLink = `${MainPartLink}?category=${category}`;
+  const typeLink = `${MainPartLink}?category=${category}`;
 
   return (
     <SidebarGroup>
@@ -49,13 +54,7 @@ export function NavMain({
               className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton
-                    className={cn(
-                      "",
-                      item.url === MainPartLink &&
-                        "bg-[#0582FE0F] hover:bg-[#0582FE0F] text-[#182233] font-medium"
-                    )}
-                    tooltip={item.title}>
+                  <SidebarMenuButton tooltip={item.title}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -65,7 +64,14 @@ export function NavMain({
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
+                        <SidebarMenuSubButton
+                          className={cn(
+                            "",
+                            (subItem.url === categoryLink ||
+                              subItem.url === typeLink) &&
+                              "bg-[#0582FE0F] hover:bg-[#0582FE0F] text-[#182233] font-medium"
+                          )}
+                          asChild>
                           <Link href={subItem.url}>
                             <span>{subItem.title}</span>
                           </Link>

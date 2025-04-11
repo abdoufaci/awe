@@ -96,7 +96,11 @@ function OrdersBody() {
                   </span>{" "}
                 </h1>
                 {order?.status !== "REQUESTED" && (
-                  <h1 className="text-[#929AA8]">{product.price} €</h1>
+                  <h1 className="text-[#929AA8]">
+                    {parseInt(product.price || "0") *
+                      parseInt(product.quantity)}{" "}
+                    €
+                  </h1>
                 )}
               </div>
             ))}

@@ -23,16 +23,31 @@ import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
 import Image from "next/image";
 import { GoodTimes, Laviossa } from "@/app/fonts";
-import { AdminNav, ClientDashboardNav } from "@/constants/navigations";
+import {
+  AdminNav,
+  ClientDashboardNav,
+  companiesNav,
+} from "@/constants/navigations";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface Props {
+  dict: any;
+}
+
+export function AppSidebar({
+  dict,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & Props) {
   const pathname = usePathname();
   const mainPart = pathname.split("/")[2];
 
   return (
-    <Sidebar collapsible="icon" className="block" {...props}>
-      <SidebarHeader className="border-b">
+    <Sidebar
+      collapsible="icon"
+      className={cn("block", mainPart === "companies" && "border-none")}
+      {...props}>
+      <SidebarHeader className="border-b border-r-0">
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
             alt="logo"
@@ -47,7 +62,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={mainPart === "admin" ? AdminNav : ClientDashboardNav} />
+        <NavMain
+          items={
+            mainPart === "admin"
+              ? AdminNav
+              : mainPart === "companies"
+              ? companiesNav(dict)
+              : ClientDashboardNav
+          }
+        />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

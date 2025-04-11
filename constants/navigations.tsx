@@ -40,7 +40,7 @@ export const AdminNav = [
   },
   {
     title: "Payment",
-    url: "/admin/payment",
+    url: "/admin/payments",
     icon: Landmark,
   },
   {
@@ -58,12 +58,34 @@ export const ClientDashboardNav = [
   },
   {
     title: "Payment",
-    url: "/dashboard/payment",
+    url: "/dashboard/payments",
     icon: Landmark,
   },
   {
     title: "Settings",
     url: "/dashboard/settings",
     icon: Settings,
+  },
+];
+
+export const companiesNav = (dict: any) => [
+  {
+    title: "All Categories",
+    url: "/companies",
+    icon: Building2,
+    items: [
+      {
+        title: `${dict?.company?.clothes}`,
+        url: "/companies?category=clothes",
+      },
+      {
+        title: `${dict?.company?.makeup}`,
+        url: "/companies?category=makeup",
+      },
+      {
+        title: `${dict?.company?.food}`,
+        url: "/companies?category=food",
+      },
+    ],
   },
 ];

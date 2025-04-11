@@ -8,9 +8,13 @@ interface Props {
 }
 
 function QuoteConfirmed({ link, products, deliveryFee, username }: Props) {
-  const subtotal = products.reduce((sum, item) => sum + Number(item.price), 0);
+  const subtotal =
+    products.reduce(
+      (sum, item) => sum + Number(item.price) * Number(item.quantity),
+      0
+    ) + deliveryFee;
   const serviceFee = subtotal * 0.1;
-  const total = subtotal + deliveryFee + serviceFee;
+  const total = subtotal + serviceFee;
 
   return (
     <div

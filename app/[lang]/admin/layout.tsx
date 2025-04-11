@@ -6,17 +6,26 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getDictionary } from "../dictionaries";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface Props {
   children: React.ReactNode;
-}>) {
+  params: {
+    lang: string;
+  };
+}
+
+export default async function RootLayout({
+  children,
+  params: { lang },
+}: Props) {
+  const dict = await getDictionary(lang);
+
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset style={poppins.style}>
-        <AdminHeader />
+      <AppSidebar dict={dict} />
+      <SidebarInset className={poppins.className}>
+        <AdminHeader dict={dict} />
         {children}
       </SidebarInset>
     </SidebarProvider>

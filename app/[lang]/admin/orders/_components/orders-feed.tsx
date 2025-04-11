@@ -81,34 +81,38 @@ function OrdersFeed({ dict }: Props) {
       </TableHeader>
       <TableBody>
         {orders?.pages?.map((page) =>
-          page?.orders.map((order) => (
-            <TableRow
-              onClick={() => onOpen("editOrder", { order, dict })}
-              key={order.id}
-              className="cursor-pointer text-[#929AA8]">
-              <TableCell>{order.orderId}</TableCell>
-              <TableCell>{order.user.name}</TableCell>
-              <TableCell>{order.country}</TableCell>
-              <TableCell>{format(order.createdAt, "MM/dd/yyyy")}</TableCell>
-              <TableCell>{order.products.length}</TableCell>
-              <TableCell>
-                {order.status === "REQUESTED"
-                  ? "/"
-                  : order.products.reduce(
-                      (acc, product) => acc + parseInt(product?.price || "0"),
-                      0
-                    )}
-              </TableCell>
-              <TableCell>
-                <Button
-                  //@ts-ignore
-                  variant={order.status}
-                  className="p-1 px-2 text-xs">
-                  {dict.orders[order.status]}
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))
+          page?.orders.map((order) => {
+            const total =
+              order.products.reduce(
+                (acc, product) =>
+                  acc +
+                  parseInt(product?.price || "0") * parseInt(product.quantity),
+                0
+              ) + parseInt(order.shippingFee || "0");
+            return (
+              <TableRow
+                onClick={() => onOpen("editOrder", { order, dict })}
+                key={order.id}
+                className="cursor-pointer text-[#929AA8]">
+                <TableCell>{order.orderId}</TableCell>
+                <TableCell>{order.user.name}</TableCell>
+                <TableCell>{order.country}</TableCell>
+                <TableCell>{format(order.createdAt, "MM/dd/yyyy")}</TableCell>
+                <TableCell>{order.products.length}</TableCell>
+                <TableCell>
+                  {order.status === "REQUESTED" ? "/" : total + total * 0.1}{" "}
+                </TableCell>
+                <TableCell>
+                  <Button
+                    //@ts-ignore
+                    variant={order.status}
+                    className="p-1 px-2 text-xs">
+                    {dict.orders[order.status]}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            );
+          })
         )}
         {isFetchingNextPage && <OrdersFeed.Skeleton />}
       </TableBody>

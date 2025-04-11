@@ -29,6 +29,7 @@ import { addCompany } from "@/backend/mutations/company-actions/add-company";
 import { toast } from "sonner";
 import { Separator } from "../ui/separator";
 import { confirmOrder } from "@/backend/mutations/order/confirm-order";
+import { useOrdersByUserQuery } from "@/hooks/use-query-orders-by-user";
 
 export const CreateQuoteformSchema = z.object({
   products: z.array(
@@ -43,6 +44,7 @@ export const CreateQuoteformSchema = z.object({
 export function CreateQuoteForm() {
   const [isPending, startTransition] = useTransition();
   const { onClose, data } = useModal();
+  const { refetch } = useOrdersByUserQuery();
 
   const { dict, order } = data;
 
@@ -67,6 +69,7 @@ export function CreateQuoteForm() {
       })
         .then(() => {
           toast.success(dict?.orders.success);
+          refetch();
           onClose();
         })
         .catch(() => toast.error(dict?.orders.error));
@@ -87,24 +90,26 @@ export function CreateQuoteForm() {
           </div>
           <Separator />
           <div className="space-y-4 w-full h-full flex flex-col justify-between">
-            {order?.products.map((product, index) => (
-              <div className="grid grid-cols-4 items-center w-full text-[#434A57]">
-                <h1>{product?.company.name}</h1>
-                <h1>{product?.name}</h1>
-                <h1>{product.quantity}</h1>
-                <Input
-                  value={WatchedProducts[index]?.price}
-                  onChange={(e) => {
-                    if (WatchedProducts[index]) {
-                      WatchedProducts[index].price = e.target.value;
-                    }
-                    form.setValue("products", WatchedProducts);
-                  }}
-                  className="w-20 border border-[#CBCFD7] rounded-md"
-                  placeholder={dict?.orders.price}
-                />
-              </div>
-            ))}
+            <div className="flex flex-col gap-4">
+              {order?.products.map((product, index) => (
+                <div className="grid grid-cols-4 items-center w-full text-[#434A57]">
+                  <h1>{product?.company.name}</h1>
+                  <h1>{product?.name}</h1>
+                  <h1>{product.quantity}</h1>
+                  <Input
+                    value={WatchedProducts[index]?.price}
+                    onChange={(e) => {
+                      if (WatchedProducts[index]) {
+                        WatchedProducts[index].price = e.target.value;
+                      }
+                      form.setValue("products", WatchedProducts);
+                    }}
+                    className="w-20 border border-[#CBCFD7] rounded-md"
+                    placeholder={dict?.orders.price}
+                  />
+                </div>
+              ))}
+            </div>
             <div className="grid grid-cols-4 items-center w-full">
               <h1>{dict?.orders.shipping}</h1>
               <h1></h1>

@@ -3,6 +3,7 @@ import { sendFeesPayedEmail } from "@/lib/mail";
 import stripe from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import ShortUniqueId from "short-unique-id";
 import Stripe from "stripe";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -44,6 +45,18 @@ export async function POST(req: Request) {
           });
           if (!user) throw new Error("User not found");
 
+          const uid = new ShortUniqueId({ length: 10 });
+          const paymentId = uid.rnd();
+
+          await db.payment.create({
+            data: {
+              paymentId,
+              userId: user.id,
+              amount: `${(event.data.object.amount_total || 0) / 100}`,
+              type: "PAYMENT",
+            },
+          });
+
           await sendFeesPayedEmail({
             username: user.name || "",
             email: customerDetails.email,
@@ -74,6 +87,19 @@ export async function POST(req: Request) {
           });
           if (!user) throw new Error("User not found");
 
+          const uid = new ShortUniqueId({ length: 10 });
+
+          const paymentId = uid.rnd();
+
+          await db.payment.create({
+            data: {
+              userId: user.id,
+              amount: `${(event.data.object.amount_total || 0) / 100}`,
+              type: "SUBSCRIPTION",
+              paymentId,
+            },
+          });
+
           let endDate = new Date();
           endDate.setMonth(endDate.getMonth() + 1);
 
@@ -103,6 +129,20 @@ export async function POST(req: Request) {
       }
 
       return new NextResponse(null, { status: 200 });
+    }
+    if (event.type === "customer.subscription.deleted") {
+      const customerId = event.data.object.customer as string;
+      if (customerId) {
+        const user = await db.user.findUnique({
+          where: { customerId },
+        });
+        if (!user) throw new Error("User not found");
+        await db.subscription.delete({
+          where: {
+            userId: user.id,
+          },
+        });
+      }
     }
 
     return new NextResponse(null, { status: 400 });

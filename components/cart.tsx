@@ -15,7 +15,7 @@ async function Cart({ dict }: Props) {
       <PopoverTrigger>
         <ShoppingCart className="h-5 w-5 text-[#434A57]" />
       </PopoverTrigger>
-      <PopoverContent side="left" className="w-full max-w-[946px]">
+      <PopoverContent className="w-full max-w-[946px]">
         <AddToCartForm dict={dict} companies={companies} />
       </PopoverContent>
     </Popover>

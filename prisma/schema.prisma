@@ -37,6 +37,8 @@ model User {
   orders       Order[]
   subscription Subscription?
 
+  payments Payment[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -48,6 +50,24 @@ model Subscription {
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PaymentType {
+  SUBSCRIPTION
+  PAYMENT
+}
+
+model Payment {
+  id        String      @id @default(uuid())
+  paymentId String
+  amount    String
+  type      PaymentType
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
